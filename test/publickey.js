@@ -333,7 +333,7 @@ describe('PublicKey', function() {
   });
 
   describe('#toAddress', function() {
-
+/*
     it('should output this known mainnet address correctly', function() {
       var pk = new PublicKey('03c87bd0e162f26969da8509cafcb7b8c8d202af30b928c582e263dd13ee9a9781');
       var address = pk.toAddress('livenet');
@@ -345,11 +345,11 @@ describe('PublicKey', function() {
       var address = pk.toAddress('testnet');
       address.toString().should.equal('mtX8nPZZdJ8d3QNLRJ1oJTiEi26Sj6LQXS');
     });
-
+*/
   });
 
   describe('hashes', function() {
-
+/*
     // wif private key, address
     // see: https://github.com/bitcoin/bitcoin/blob/master/src/test/key_tests.cpp#L20
     var data = [
@@ -364,7 +364,7 @@ describe('PublicKey', function() {
       var address = Address.fromString(d[1]);
       address.hashBuffer.should.deep.equal(publicKey._getID());
     });
-    
+  */  
   });
 
   describe('#toString', function() {
