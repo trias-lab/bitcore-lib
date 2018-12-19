@@ -2292,11 +2292,13 @@ Signature.fromCompact = function(buf) {
 };
 
 Signature.fromDER = Signature.fromBuffer = function(buf, strict) {
-  var obj = Signature.parseDER(buf, strict);
+  //var obj = Signature.parseDER(buf, strict);
   var sig = new Signature();
 
-  sig.r = obj.r;
-  sig.s = obj.s;
+  //sig.r = obj.r;
+  //sig.s = obj.s;
+  sig.r = buf;
+  sig.s = buf;
 
   return sig;
 };
@@ -2311,8 +2313,12 @@ Signature.fromTxFormat = function(buf) {
 };
 
 Signature.fromString = function(str) {
-  var buf = Buffer.from(str, 'hex');
-  return Signature.fromDER(buf);
+  //var buf = Buffer.from(str, 'hex');
+  //return Signature.fromDER(buf);
+  var sig = new Signature();
+  sig.r = str;
+  sig.s = str;
+  return sig;
 };
 
 
@@ -2397,6 +2403,8 @@ Signature.prototype.toCompact = function(i, compressed) {
 };
 
 Signature.prototype.toBuffer = Signature.prototype.toDER = function() {
+  return this.r;
+  /*
   var rnbuf = this.r.toBuffer();
   var snbuf = this.s.toBuffer();
 
@@ -2415,6 +2423,7 @@ Signature.prototype.toBuffer = Signature.prototype.toDER = function() {
 
   var der = Buffer.concat([Buffer.from([header, length, rheader, rlength]), rbuf, Buffer.from([sheader, slength]), sbuf]);
   return der;
+  */
 };
 
 Signature.prototype.toString = function() {
@@ -9654,13 +9663,15 @@ Object.defineProperty(Output.prototype, 'satoshis', {
       this._satoshis = num.toNumber();
     } else if (_.isString(num)) {
       this._satoshis = parseInt(num);
-      this._satoshisBN = BN.fromNumber(this._satoshis);
+      //this._satoshisBN = BN.fromNumber(this._satoshis);
+        this._satoshisBN = BN.fromNumber(0);
     } else {
       $.checkArgument(
         JSUtil.isNaturalNumber(num),
         'Output satoshis is not a natural number'
       );
-      this._satoshisBN = BN.fromNumber(num);
+      //this._satoshisBN = BN.fromNumber(num);
+      this._satoshisBN = BN.fromNumber(0);
       this._satoshis = num;
     }
     $.checkState(
@@ -28785,7 +28796,13 @@ utils.intFromLE = intFromLE;
 
 },{"bn.js":66,"minimalistic-assert":169,"minimalistic-crypto-utils":170}],134:[function(require,module,exports){
 module.exports={
-  "_from": "elliptic@=6.4.0",
+  "_args": [
+    [
+      "elliptic@6.4.0",
+      "/tmp/bitcore-lib"
+    ]
+  ],
+  "_from": "elliptic@6.4.0",
   "_id": "elliptic@6.4.0",
   "_inBundle": false,
   "_integrity": "sha1-ysmvh2LIWDYYcAPI3+GT5eLq5d8=",
@@ -28794,12 +28811,12 @@ module.exports={
   "_requested": {
     "type": "version",
     "registry": true,
-    "raw": "elliptic@=6.4.0",
+    "raw": "elliptic@6.4.0",
     "name": "elliptic",
     "escapedName": "elliptic",
-    "rawSpec": "=6.4.0",
+    "rawSpec": "6.4.0",
     "saveSpec": null,
-    "fetchSpec": "=6.4.0"
+    "fetchSpec": "6.4.0"
   },
   "_requiredBy": [
     "/",
@@ -28808,8 +28825,7 @@ module.exports={
     "/secp256k1"
   ],
   "_resolved": "https://registry.npmjs.org/elliptic/-/elliptic-6.4.0.tgz",
-  "_shasum": "cac9af8762c85836187003c8dfe193e5e2eae5df",
-  "_spec": "elliptic@=6.4.0",
+  "_spec": "6.4.0",
   "_where": "/tmp/bitcore-lib",
   "author": {
     "name": "Fedor Indutny",
@@ -28818,7 +28834,6 @@ module.exports={
   "bugs": {
     "url": "https://github.com/indutny/elliptic/issues"
   },
-  "bundleDependencies": false,
   "dependencies": {
     "bn.js": "^4.4.0",
     "brorand": "^1.0.1",
@@ -28828,7 +28843,6 @@ module.exports={
     "minimalistic-assert": "^1.0.0",
     "minimalistic-crypto-utils": "^1.0.0"
   },
-  "deprecated": false,
   "description": "EC cryptography",
   "devDependencies": {
     "brfs": "^1.4.3",
