@@ -11396,7 +11396,7 @@ PublicKeyHashInput.prototype.getSignatures = function(transaction, privateKey, i
   var value = transaction.outputs[0]._satoshis
   value = '0x' + value.toString(16)
   var data = '0x'
-  var chainId = 3
+  var chainId = 15
   var privateKeyBuffer = privateKey.toBuffer();
 
   var txParams = {
@@ -57819,7 +57819,7 @@ exports.createContext = Script.createContext = function (context) {
 
 },{}],235:[function(require,module,exports){
 module.exports={
-  "name": "bitcore-lib-eth",
+  "name": "bitcore-lib-tri",
   "version": "0.16.0",
   "description": "A pure and powerful JavaScript Bitcoin library.",
   "author": "BitPay <dev@bitpay.com>",
@@ -57890,14 +57890,14 @@ var bitcore = module.exports;
 bitcore.version = 'v' + require('./package.json').version;
 bitcore.versionGuard = function(version) {
   if (version !== undefined) {
-    var message = 'More than one instance of bitcore-lib-eth found. ' +
-      'Please make sure to require bitcore-lib-eth and check that submodules do' +
-      ' not also include their own bitcore-lib-eth dependency.';
+    var message = 'More than one instance of bitcore-lib-tri found. ' +
+      'Please make sure to require bitcore-lib-tri and check that submodules do' +
+      ' not also include their own bitcore-lib-tri dependency.';
     throw new Error(message);
   }
 };
-bitcore.versionGuard(global._bitcoreEth);
-global._bitcoreEth = bitcore.version;
+bitcore.versionGuard(global._bitcoreTri);
+global._bitcoreTri = bitcore.version;
 
 // crypto
 bitcore.crypto = {};
