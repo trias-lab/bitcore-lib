@@ -6,14 +6,14 @@ var bitcore = module.exports;
 bitcore.version = 'v' + require('./package.json').version;
 bitcore.versionGuard = function(version) {
   if (version !== undefined) {
-    var message = 'More than one instance of bitcore-lib-eth found. ' +
-      'Please make sure to require bitcore-lib-eth and check that submodules do' +
-      ' not also include their own bitcore-lib-eth dependency.';
+    var message = 'More than one instance of bitcore-lib-tri found. ' +
+      'Please make sure to require bitcore-lib-tri and check that submodules do' +
+      ' not also include their own bitcore-lib-tri dependency.';
     throw new Error(message);
   }
 };
-bitcore.versionGuard(global._bitcoreEth);
-global._bitcoreEth = bitcore.version;
+bitcore.versionGuard(global._bitcoreTri);
+global._bitcoreTri = bitcore.version;
 
 // crypto
 bitcore.crypto = {};
