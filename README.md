@@ -5,7 +5,7 @@ Bitcore Library
 [![Build Status](https://img.shields.io/travis/bitpay/bitcore-lib.svg?branch=master&style=flat-square)](https://travis-ci.org/bitpay/bitcore-lib)
 [![Coverage Status](https://img.shields.io/coveralls/bitpay/bitcore-lib.svg?style=flat-square)](https://coveralls.io/r/bitpay/bitcore-lib)
 
-A pure and powerful JavaScript Bitcoin library.
+A pure and powerful JavaScript Bitcoin library. This branch add trias v1 transaction support. It's used by [bitcore-wallet-service](https://github.com/trias-lab/bitcore-wallet-service).
 
 ## Principles
 
