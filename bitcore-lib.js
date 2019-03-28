@@ -295,6 +295,13 @@ Address._transformString = function(data, network, type) {
     throw new TypeError('data parameter supplied is not a string.');
   }
   data = data.trim();
+  var str = data;
+  if (str.substr(0, 2) === '0x' || str.substr(0, 2) === '0X') {
+      str = str.slice(2);
+  }
+  if (str.length !== 40) {
+      throw  new TypeError('tri address length not right, wrong length ' + str.length);
+  }
   //var addressBuffer = Base58Check.decode(data);
    var hash = EthJsUtil.toBuffer(data);
    var info = Address._transformHash(hash);
