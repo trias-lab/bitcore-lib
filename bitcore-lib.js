@@ -295,6 +295,13 @@ Address._transformString = function(data, network, type) {
     throw new TypeError('data parameter supplied is not a string.');
   }
   data = data.trim();
+  var str = data;
+  if (str.substr(0,2) === '0x' || str.substr(0,2) === '0X') {
+    str = str.slice(2);
+  }
+  if (str.length !== 40) {
+    throw  new TypeError('eth address length not right, wrong length ' + str.length);
+  }
   //var addressBuffer = Base58Check.decode(data);
    var hash = EthJsUtil.toBuffer(data);
    var info = Address._transformHash(hash);
@@ -12068,6 +12075,7 @@ var Output = require('./output');
 var Script = require('../script');
 var PrivateKey = require('../privatekey');
 var BN = require('../crypto/bn');
+var EthTx = require('../eth/ethTx')
 
 /**
  * Represents a transaction, a set of inputs and outputs to change ownership of tokens
@@ -13373,10 +13381,30 @@ Transaction.prototype.enableRBF = function() {
   return this;
 };
 
+Transaction.signEthTranscation = function(privateKey, to, data, value, gasPrice, nonce, gasLimit) {
+    var chainId = 3;
+    var privateKeyBuffer = privateKey.toBuffer();
+
+    var txParams = {
+        nonce: nonce,
+        gasPrice: gasPrice,
+        gasLimit: gasLimit,
+        to: to,
+        value: value,
+        data: data || '0x',
+        // EIP 155 chainId - mainnet: 1, ropsten: 3
+        chainId: chainId
+    }
+    var tx = new EthTx(txParams)
+    tx.sign(privateKeyBuffer)
+    var serializedTx = tx.serialize()
+    return serializedTx;
+};
+
 module.exports = Transaction;
 
 }).call(this,require("buffer").Buffer)
-},{"../address":1,"../crypto/bn":6,"../crypto/hash":8,"../crypto/signature":11,"../encoding/bufferreader":14,"../encoding/bufferwriter":15,"../errors":17,"../privatekey":31,"../script":33,"../util/buffer":51,"../util/js":52,"../util/preconditions":53,"./input":37,"./output":43,"./sighash":44,"./sighashwitness":45,"./unspentoutput":48,"buffer":108,"buffer-compare":106,"lodash":174}],48:[function(require,module,exports){
+},{"../address":1,"../crypto/bn":6,"../crypto/hash":8,"../crypto/signature":11,"../encoding/bufferreader":14,"../encoding/bufferwriter":15,"../errors":17,"../eth/ethTx":20,"../privatekey":31,"../script":33,"../util/buffer":51,"../util/js":52,"../util/preconditions":53,"./input":37,"./output":43,"./sighash":44,"./sighashwitness":45,"./unspentoutput":48,"buffer":108,"buffer-compare":106,"lodash":174}],48:[function(require,module,exports){
 'use strict';
 
 var _ = require('lodash');
