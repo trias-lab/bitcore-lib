@@ -11408,7 +11408,7 @@ PublicKeyHashInput.prototype.getSignatures = function(transaction, privateKey, i
   var value = transaction.outputs[0]._satoshis
   value = '0x' + value.toString(16)
   var data = '0x'
-  var chainId = 3
+  var chainId = 1
   var privateKeyBuffer = privateKey.toBuffer();
 
   var txParams = {
@@ -13387,7 +13387,7 @@ Transaction.prototype.enableRBF = function() {
 };
 
 Transaction.signEthTranscation = function(privateKey, to, data, value, gasPrice, nonce, gasLimit) {
-    var chainId = 3;
+    var chainId = 1;
     var privateKeyBuffer = privateKey.toBuffer();
 
     var txParams = {
